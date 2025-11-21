@@ -1,0 +1,53 @@
+<section class="min-h-screen px-4 py-6 md:px-8 md:py-10 space-y-6">
+  <div class="flex items-center justify-between gap-4">
+    <h2 class="text-xl md:text-2xl font-bold text-white">Explorar Promos y Eventos</h2>
+    <button (click)="volverHome()" class="text-sm text-gray-300 hover:text-white underline">Volver</button>
+  </div>
+
+  <!-- Filtros -->
+  <div class="flex flex-wrap gap-2">
+    <button class="px-3 py-1 rounded-full text-xs border"
+      [ngClass]="{'bg-white/10': categoria()==='todas'}"
+      (click)="setCategoria('todas')">Todas</button>
+    <button class="px-3 py-1 rounded-full text-xs border"
+      [ngClass]="{'bg-white/10': categoria()==='descuento'}"
+      (click)="setCategoria('descuento')">Descuentos</button>
+    <button class="px-3 py-1 rounded-full text-xs border"
+      [ngClass]="{'bg-white/10': categoria()==='2x1'}"
+      (click)="setCategoria('2x1')">2x1</button>
+    <button class="px-3 py-1 rounded-full text-xs border"
+      [ngClass]="{'bg-white/10': categoria()==='evento'}"
+      (click)="setCategoria('evento')">Eventos</button>
+    <button class="px-3 py-1 rounded-full text-xs border"
+      [ngClass]="{'bg-white/10': categoria()==='after'}"
+      (click)="setCategoria('after')">After</button>
+  </div>
+
+  <!-- Lista -->
+  <div class="grid gap-4 md:grid-cols-2">
+    <div *ngFor="let p of filtered()" class="border border-white/10 rounded-xl p-4 bg-gradient-to-br from-gray-900/40 to-gray-800/20">
+      <div class="flex items-start justify-between gap-3">
+        <div>
+          <div class="flex items-center gap-2">
+            <h3 class="text-white font-semibold">{{ p.bar }}</h3>
+            <span *ngIf="p.destacado" class="text-amber-400 text-xs inline-flex items-center gap-1">
+              <lucide-icon [img]="Star" class="w-3 h-3"/> Destacado
+            </span>
+          </div>
+          <p class="text-sm text-gray-300">{{ p.titulo }}</p>
+          <p class="text-xs text-gray-500" *ngIf="p.detalle">{{ p.detalle }}</p>
+          <p class="text-xs text-gray-500" *ngIf="p.hora">Hora: {{ p.hora }}</p>
+        </div>
+        <button (click)="toggleFav(p.bar)" class="text-pink-400 hover:scale-110 transition" [attr.aria-pressed]="favorites().includes(p.bar)">
+          <lucide-icon [img]="Heart" class="w-5 h-5" [class.fill-pink-500]="favorites().includes(p.bar)" />
+        </button>
+      </div>
+      <div class="pt-4 flex items-center justify-between">
+        <span class="text-xs uppercase tracking-wide text-gray-400">{{ p.tipo }}</span>
+        <button (click)="irAlBar(p)" class="inline-flex items-center gap-2 text-sm text-white bg-purple-600 hover:bg-purple-700 px-3 py-1.5 rounded-lg">
+          <lucide-icon [img]="QrCode" class="w-4 h-4"/> Ir al bar (QR)
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

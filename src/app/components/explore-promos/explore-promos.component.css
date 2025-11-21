@@ -1,0 +1,3 @@
+button[aria-pressed='true'] svg {
+  stroke: #ec4899;
+}

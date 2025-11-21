@@ -1,0 +1,10 @@
+<main class="min-h-screen bg-gradient-to-b from-gray-900 to-black">
+  <app-home-landing *ngIf="step() === 'home'" />
+  <app-explore-promos *ngIf="step() === 'explore'" />
+  <app-ally-signup *ngIf="step() === 'ally'" />
+
+  <app-qr-scanner *ngIf="step() === 'scan'" />
+  <app-reservation-form *ngIf="step() === 'form'" />
+  <app-waiting-room *ngIf="step() === 'waiting' && reservation()" [reservation]="reservation()!" />
+  <app-ready-notification *ngIf="step() === 'ready' && reservation()" [reservation]="reservation()!" />
+</main>

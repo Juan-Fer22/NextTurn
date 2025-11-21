@@ -1,0 +1,63 @@
+<div class="min-h-screen flex flex-col items-center justify-center p-6 relative overflow-hidden">
+  <canvas
+    *ngIf="showConfetti"
+    #confettiCanvas
+    class="absolute inset-0 pointer-events-none"
+  ></canvas>
+
+  <div
+    class="absolute inset-0 animate-pulse"
+    [style.background]="'radial-gradient(circle at center, ' + reservation.color + '40, transparent 70%)'"
+  ></div>
+
+  <div class="relative z-10 w-full max-w-md">
+    <div class="text-center mb-8 animate-bounce">
+      <lucide-icon [img]="CheckCircle2" class="w-24 h-24 mx-auto mb-4" [style.color]="reservation.color" />
+    </div>
+
+    <div
+      class="p-8 border-4 text-center space-y-6 rounded-lg"
+      [style.border-color]="reservation.color"
+      [style.background]="'linear-gradient(135deg, ' + reservation.color + '20, ' + reservation.color + '10)'"
+      [style.box-shadow]="'0 0 60px ' + reservation.color + '60'"
+    >
+      <div>
+        <h1 class="text-4xl font-bold text-white mb-3 leading-tight">¡Es tu momento!</h1>
+        <p class="text-2xl text-gray-200 font-semibold">{{ reservation.name }}</p>
+      </div>
+
+      <div class="py-6 space-y-3">
+        <div class="flex items-center justify-center gap-2 text-yellow-400">
+          <lucide-icon [img]="Sparkles" class="w-6 h-6" />
+          <span class="text-lg font-medium">Tu mesa está lista</span>
+          <lucide-icon [img]="Sparkles" class="w-6 h-6" />
+        </div>
+
+        <p class="text-gray-300 text-lg leading-relaxed">Dirígete a la entrada y muestra esta pantalla</p>
+      </div>
+
+      <div
+        class="p-6 rounded-2xl"
+        [style.background-color]="reservation.color"
+        [style.box-shadow]="'0 10px 40px ' + reservation.color + '60'"
+      >
+        <div class="text-white space-y-2">
+          <div class="text-sm opacity-90 uppercase tracking-wide">Tu reserva</div>
+          <div class="text-3xl font-bold">
+            {{ getTypeName() }}
+          </div>
+          <div class="text-sm opacity-90">
+            {{ reservation.people }} {{ reservation.people === 1 ? 'persona' : 'personas' }}
+          </div>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-center gap-2 text-white text-lg font-semibold animate-pulse">
+        <span>Pasa a la entrada</span>
+        <lucide-icon [img]="ArrowRight" class="w-6 h-6" />
+      </div>
+    </div>
+
+    <p class="text-center text-gray-400 mt-8 text-sm">¡Disfruta tu noche! 🎉</p>
+  </div>
+</div>

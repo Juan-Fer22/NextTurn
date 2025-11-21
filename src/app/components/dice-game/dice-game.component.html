@@ -1,0 +1,50 @@
+<div class="space-y-4">
+  <!-- Dado -->
+  <div class="bg-gradient-to-br from-purple-900/50 to-pink-900/50 backdrop-blur border border-purple-500/30 p-8 rounded-lg">
+    <div class="flex flex-col items-center justify-center">
+      <div [class]="isRolling ? 'animate-spin' : 'animate-pulse'" class="w-32 h-32 bg-white rounded-2xl shadow-2xl flex items-center justify-center mb-6 transition-transform">
+        <span *ngIf="currentFace" class="text-6xl font-bold text-gray-800">{{ currentFace }}</span>
+        <lucide-icon *ngIf="!currentFace" [img]="Dices" class="w-16 h-16 text-gray-400"></lucide-icon>
+      </div>
+      <button (click)="rollDice()" [disabled]="rollsLeft <= 0 || isRolling" class="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold px-8 py-6 text-lg rounded-xl shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2">
+        <lucide-icon *ngIf="rollsLeft > 0 && !isRolling" [img]="Dices" class="h-5 w-5"></lucide-icon>
+        <span *ngIf="isRolling">Lanzando...</span>
+        <span *ngIf="!isRolling && rollsLeft > 0">Lanzar Dado ({{ rollsLeft }} {{ rollsLeft === 1 ? 'intento' : 'intentos' }})</span>
+        <span *ngIf="!isRolling && rollsLeft <= 0">Sin lanzamientos</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Premios ganados -->
+  <div *ngIf="prizes.length > 0" class="bg-gray-900/80 backdrop-blur border border-gray-800 p-4 rounded-lg">
+    <div class="flex items-center gap-2 mb-3">
+      <lucide-icon [img]="Gift" class="w-4 h-4 text-yellow-400"></lucide-icon>
+      <h4 class="text-sm font-semibold text-white uppercase tracking-wide">Tus Resultados</h4>
+    </div>
+    <div class="space-y-2">
+      <div *ngFor="let prize of prizes" 
+        class="flex items-center gap-3 p-3 rounded-lg border" 
+        [ngClass]="{
+          'bg-green-500/20': prize.won,
+          'border-green-500/30': prize.won,
+          'bg-gray-800/50': !prize.won,
+          'border-gray-700': !prize.won
+        }">
+        <lucide-icon *ngIf="prize.won" [img]="Gift" class="w-5 h-5 text-green-400 flex-shrink-0"></lucide-icon>
+        <lucide-icon *ngIf="!prize.won" [img]="X" class="w-5 h-5 text-gray-500 flex-shrink-0"></lucide-icon>
+        <span class="text-sm font-medium" 
+          [ngClass]="{
+            'text-green-300': prize.won,
+            'text-gray-400': !prize.won
+          }">{{ prize.prize }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Instrucciones -->
+  <div *ngIf="prizes.length === 0" class="bg-gray-900/50 backdrop-blur border border-gray-800 p-4 rounded-lg">
+    <p class="text-sm text-gray-400 text-center leading-relaxed">
+      Tienes <span class="text-white font-bold">{{ maxRolls }} lanzamientos</span> para ganar premios mientras esperas. ¡Buena suerte! 🎲
+    </p>
+  </div>
+</div>

@@ -1,0 +1,96 @@
+<div
+  class="min-h-screen p-6 flex flex-col transition-colors duration-1000"
+  [style.background]="'linear-gradient(135deg, ' + getBackgroundColor() + ', #000000)'"
+>
+  <!-- Header con nombre -->
+  <div class="text-center mb-6">
+    <h2 class="text-2xl font-bold text-white mb-1">Hola, {{ reservation.name }}</h2>
+    <p class="text-gray-300 text-sm">
+      <span *ngIf="reservation.celebration">{{ reservation.celebration }} • </span>
+      {{ reservation.people }} {{ reservation.people === 1 ? 'persona' : 'personas' }}
+    </p>
+  </div>
+
+  <!-- Moneda de progreso -->
+  <div class="flex justify-center mb-6">
+    <div class="relative">
+      <div
+        class="w-32 h-32 rounded-full flex items-center justify-center transition-all duration-1000 shadow-2xl"
+        [ngStyle]="getCoinStyles()"
+      >
+        <div class="text-center">
+          <lucide-icon [img]="Coins" class="w-12 h-12 text-white mb-1 mx-auto" />
+          <div class="text-white font-bold text-xs uppercase tracking-wider">
+            {{ getTypeName() }}
+          </div>
+        </div>
+      </div>
+      <!-- Anillo de progreso -->
+      <svg
+        class="absolute inset-0 w-32 h-32 -rotate-90"
+        style="filter: drop-shadow(0 0 8px rgba(255,255,255,0.5))"
+      >
+        <circle cx="64" cy="64" r="60" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="3" />
+        <circle
+          cx="64"
+          cy="64"
+          r="60"
+          fill="none"
+          stroke="white"
+          stroke-width="3"
+          [attr.stroke-dasharray]="2 * 3.14159 * 60"
+          [attr.stroke-dashoffset]="getCircleStrokeDashoffset()"
+          class="transition-all duration-1000"
+          stroke-linecap="round"
+        />
+      </svg>
+    </div>
+  </div>
+
+  <!-- Contador principal -->
+  <div class="bg-gray-900/80 backdrop-blur border border-gray-800 p-6 mb-6 rounded-lg">
+    <div class="text-center mb-4">
+      <div class="flex items-center justify-center gap-2 mb-2">
+        <lucide-icon [img]="Clock" class="w-5 h-5 text-gray-400" />
+        <span class="text-sm text-gray-400 uppercase tracking-wide">Tiempo de espera</span>
+      </div>
+      <div class="text-6xl font-bold text-white tabular-nums">
+        {{ minutes.toString().padStart(2, '0') }}:{{ seconds.toString().padStart(2, '0') }}
+      </div>
+    </div>
+
+    <div class="h-3 mb-4 bg-white/10 rounded-full overflow-hidden">
+      <div
+        class="h-full bg-white transition-all duration-1000"
+        [style.width.%]="progress"
+      ></div>
+    </div>
+
+    <div class="flex items-center justify-center gap-2 text-gray-300">
+      <lucide-icon [img]="TrendingUp" class="w-4 h-4" />
+      <span class="text-sm">{{ progress.toFixed(0) }}% completado</span>
+    </div>
+  </div>
+
+  <!-- Mensaje motivacional -->
+  <div
+    class="p-6 mb-6 border-2 rounded-lg transition-all duration-500"
+    [style.border-color]="getCoinColor()"
+    [style.background-color]="getCoinColor() + '20'"
+    [style.box-shadow]="'0 0 30px ' + getCoinColor() + '40'"
+  >
+    <div class="text-center">
+      <div class="text-4xl mb-3">{{ currentMessage.icon }}</div>
+      <p class="text-gray-900 text-lg font-bold leading-relaxed">{{ currentMessage.message }}</p>
+    </div>
+  </div>
+
+  <!-- Juego de dados -->
+  <div class="flex-1 flex flex-col">
+    <div class="flex items-center justify-center gap-2 mb-4">
+      <lucide-icon [img]="Sparkles" class="w-5 h-5 text-yellow-400" />
+      <h3 class="text-xl font-bold text-white">Juega y Gana Premios</h3>
+    </div>
+    <app-dice-game [maxRolls]="reservation.diceRolls" />
+  </div>
+</div>

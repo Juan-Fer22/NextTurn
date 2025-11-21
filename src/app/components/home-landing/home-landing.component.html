@@ -1,0 +1,43 @@
+<section class="min-h-screen flex flex-col items-center justify-center text-center px-6 py-12 space-y-10">
+  <div class="space-y-4">
+    <h1 class="text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">
+      NexTurn
+    </h1>
+    <p class="text-gray-400 max-w-xl mx-auto leading-relaxed">
+      Gestiona tu acceso inteligente a la noche: menos espera, más experiencia. Encuentra eventos, promociones y conecta tu bar como aliado.
+    </p>
+  </div>
+
+  <div class="grid gap-6 w-full max-w-3xl md:grid-cols-3">
+    <!-- Usuario -->
+    <button (click)="goScan()" class="group relative overflow-hidden border border-purple-600/40 rounded-xl p-6 bg-gradient-to-br from-purple-900/40 to-purple-800/30 hover:from-purple-800 hover:to-purple-700 transition-all shadow-lg">
+      <div class="flex flex-col items-center gap-3">
+        <lucide-icon [img]="QrCode" class="w-10 h-10 text-purple-400 group-hover:scale-110 transition" />
+        <h3 class="text-lg font-semibold text-white">Soy Usuario</h3>
+        <p class="text-xs text-gray-400">Escanea el código del bar y entra a la fila virtual.</p>
+      </div>
+    </button>
+
+    <!-- Explorar -->
+    <button (click)="goExplore()" class="group relative overflow-hidden border border-pink-600/40 rounded-xl p-6 bg-gradient-to-br from-pink-900/40 to-pink-800/30 hover:from-pink-800 hover:to-pink-700 transition-all shadow-lg">
+      <div class="flex flex-col items-center gap-3">
+        <lucide-icon [img]="MapPin" class="w-10 h-10 text-pink-400 group-hover:scale-110 transition" />
+        <h3 class="text-lg font-semibold text-white">Explorar Hoy</h3>
+        <p class="text-xs text-gray-400">Promociones, eventos y afters en un solo lugar.</p>
+      </div>
+    </button>
+
+    <!-- Aliado -->
+    <button (click)="goAlly()" class="group relative overflow-hidden border border-blue-600/40 rounded-xl p-6 bg-gradient-to-br from-blue-900/40 to-blue-800/30 hover:from-blue-800 hover:to-blue-700 transition-all shadow-lg">
+      <div class="flex flex-col items-center gap-3">
+        <lucide-icon [img]="Handshake" class="w-10 h-10 text-blue-400 group-hover:scale-110 transition" />
+        <h3 class="text-lg font-semibold text-white">Conviértete en Aliado</h3>
+        <p class="text-xs text-gray-400">Atrae más clientes, retén y gana fidelidad.</p>
+      </div>
+    </button>
+  </div>
+
+  <footer class="pt-8 text-xs text-gray-600">
+    <p>Validación temprana · MVP Académico · Noviembre</p>
+  </footer>
+</section>
